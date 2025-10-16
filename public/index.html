@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion 블로그 자동 발행기</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-content">
+        <h1>📝 Notion 블로그 자동 발행기</h1>
+        <p class="subtitle">Notion 데이터베이스에서 게시글을 가져와 자동으로 발행합니다</p>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- 로딩 상태 -->
+      <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>로딩 중...</p>
+      </div>
+
+      <!-- 에러 메시지 -->
+      <div id="error" class="error hidden">
+        <div class="error-icon">⚠️</div>
+        <p id="error-message"></p>
+        <button onclick="location.reload()" class="btn btn-secondary">다시 시도</button>
+      </div>
+
+      <!-- 게시글 목록 -->
+      <div id="posts-container" class="posts-container">
+        <div class="posts-header">
+          <h2>발행 준비 게시글</h2>
+          <button onclick="loadPosts()" class="btn btn-refresh">🔄 새로고침</button>
+        </div>
+        <div id="posts-list" class="posts-list">
+          <!-- 게시글이 여기에 동적으로 추가됩니다 -->
+        </div>
+      </div>
+
+      <!-- 게시글 미리보기 모달 -->
+      <div id="preview-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="modal-title">게시글 미리보기</h2>
+            <button onclick="closePreview()" class="btn-close">✕</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-tags" class="post-tags"></div>
+            <div id="modal-image" class="post-image-container"></div>
+            <div id="modal-content" class="markdown-content"></div>
+          </div>
+          <div class="modal-footer">
+            <button onclick="closePreview()" class="btn btn-secondary">취소</button>
+            <button id="publish-btn" onclick="publishPost()" class="btn btn-primary">
+              🚀 발행하기
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 성공 알림 토스트 -->
+      <div id="toast" class="toast hidden">
+        <div class="toast-icon">✅</div>
+        <div class="toast-content">
+          <h3 id="toast-title">게시 완료!</h3>
+          <p id="toast-message">게시글이 성공적으로 발행되었습니다.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
