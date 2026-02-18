@@ -272,9 +272,14 @@ app.get('/api/database/properties', async (req, res) => {
   }
 });
 
-// 서버 시작
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-  console.log(`📝 Notion Database ID: ${databaseId ? '설정됨' : '미설정'}`);
-});
+// Vercel 환경이 아닐 때만 서버 시작 (로컬 개발용)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+    console.log(`📝 Notion Database ID: ${databaseId ? '설정됨' : '미설정'}`);
+  });
+}
+
+// Vercel 서버리스 함수용 export
+module.exports = app;
 
